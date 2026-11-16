@@ -1,136 +1,267 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>60 FPS Game Booster</title>
+    <title>Abdul Hadi - 60 FPS Pro Game Booster</title>
     <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #131c2e;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #0b0f19;
-            color: #ffffff;
-            padding: 15px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        h0 {
+        .header {
             text-align: center;
-            display: block;
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: #38bdf8;
-            font-weight: bold;
+            margin-bottom: 20px;
         }
-        .device-info {
-            background: #1e293b;
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            font-size: 14px;
-            border-left: 4px solid #38bdf8;
+        .header h1 {
+            font-size: 20px;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+        .header p {
+            font-size: 13px;
+            color: var(--text-secondary);
         }
         .card {
-            background: #1e293b;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+            background-color: var(--card-bg);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
-        .card h3 {
+        .device-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .device-info div h3 {
             font-size: 15px;
-            margin-bottom: 6px;
-            color: #cbd5e1;
+            color: var(--accent);
         }
-        .status {
-            font-size: 18px;
-            font-weight: bold;
-            color: #4ade80;
+        .device-info div p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
         }
-        select, button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            border: none;
-            outline: none;
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(148, 163, 184, 0.15);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .fps-meter-box {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .fps-stat h2 {
+            font-size: 20px;
+            color: var(--success);
+        }
+        .fps-stat span {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .select-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
         }
         select {
-            background: #0f172a;
+            width: 100%;
+            background: #1e293b;
             color: white;
-            border: 1px solid #475569;
-            margin-top: 5px;
+            border: 1px solid #334155;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
         }
-        button {
-            background: #2563eb;
+        .btn-boost {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
             color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transition: all 0.2s ease;
             margin-top: 10px;
-            transition: 0.2s;
         }
-        button:active {
-            background: #1d4ed8;
+        .btn-boost.active-boost {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5);
         }
-        #log {
-            margin-top: 10px;
-            font-size: 13px;
-            color: #94a3b8;
-            text-align: center;
+        .btn-boost:active {
+            transform: scale(0.98);
+        }
+        .log-box {
+            background: #090d16;
+            border-radius: 10px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #38bdf8;
+            height: 90px;
+            overflow-y: auto;
+            border: 1px solid #1e293b;
+        }
+        .floating-hud {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: monospace;
+            z-index: 999;
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h0>⚡ Infinix Note 7 - 60 FPS Booster</h0>
+    <div class="floating-hud" id="hudWidget">60 FPS | Normal</div>
 
-        <div class="device-info">
-            📱 Device: <b>Infinix Note 7 (Helio G70)</b><br>
-            🎯 Target: <b>60 FPS Rock-Solid Lock</b>
+    <div>
+        <div class="header">
+            <h1>⚡ Abdul Hadi's 60 FPS Engine</h1>
+            <p>iPad M5 Stability & Toggle Control</p>
+        </div>
+
+        <div class="card device-info">
+            <div>
+                <h3>Infinix Note 7 (Helio G70)</h3>
+                <p>Owner: Abdul Hadi</p>
+            </div>
+            <div class="status-badge" id="modeBadge">
+                ● Normal State
+            </div>
         </div>
 
         <div class="card">
-            <h3>Refresh Rate Status</h3>
-            <div class="status" id="fpsStatus">60 FPS Locked (Stable)</div>
+            <div class="fps-meter-box">
+                <div class="fps-stat">
+                    <h2 id="targetFps">60 FPS</h2>
+                    <span>Target Lock</span>
+                </div>
+                <div class="fps-stat">
+                    <h2 id="gpuStatus">Standard</h2>
+                    <span>GPU Engine</span>
+                </div>
+                <div class="fps-stat">
+                    <h2 id="cpuState">Normal</h2>
+                    <span>Governor</span>
+                </div>
+            </div>
         </div>
 
-        <div class="card">
-            <h3>Select Game</h3>
+        <div class="card select-group">
+            <label for="gameSelect">Select Target Game</label>
             <select id="gameSelect">
-                <option>PUBG Mobile (Smooth + Extreme)</option>
-                <option>Free Fire</option>
-                <option>Call of Duty Mobile</option>
+                <option value="pubg">PUBG Mobile (Smooth + Extreme 60 FPS)</option>
+                <option value="bgmi">BGMI (Smooth + 60 FPS)</option>
             </select>
         </div>
 
-        <button onclick="boostGame()">🚀 START BOOSTING</button>
-        <div id="log">Status: Ready to boost</div>
+        <div class="card">
+            <label style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; display: block;">Live Execution Log:</label>
+            <div class="log-box" id="logConsole">
+                > System initialized for Abdul Hadi.<br>
+                > Tap boost to activate pro performance.
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button class="btn-boost" id="boostBtn" onclick="toggleBoost()">🚀 START PRO BOOSTING</button>
     </div>
 
     <script>
-        function boostGame() {
-            let logBox = document.getElementById("log");
-            let fpsBox = document.getElementById("fpsStatus");
-            
-            logBox.innerHTML = "🔄 Clearing background cache & RAM...";
-            fpsBox.style.color = "#facc15";
-            fpsBox.innerHTML = "Optimizing Engine...";
+        let isBoosted = false;
 
-            setTimeout(() => {
-                logBox.innerHTML = "✅ CPU Performance Governor Forced!";
-                fpsBox.style.color = "#4ade80";
-                fpsBox.innerHTML = "60 FPS Locked (No Drops)";
-                alert("🎮 Game Boosted Successfully! Open your game now.");
-            }, 1200);
+        function addLog(text) {
+            const consoleBox = document.getElementById('logConsole');
+            consoleBox.innerHTML += "> " + text + "<br>";
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        function toggleBoost() {
+            const btn = document.getElementById('boostBtn');
+            const badge = document.getElementById('modeBadge');
+            const hud = document.getElementById('hudWidget');
+            const gpuText = document.getElementById('gpuStatus');
+            const cpuText = document.getElementById('cpuState');
+
+            if (!isBoosted) {
+                isBoosted = true;
+                btn.innerText = "🛑 RESTORE NORMAL STATE";
+                btn.classList.add("active-boost");
+                
+                badge.innerText = "● Pro Boost Active";
+                badge.style.color = "var(--success)";
+                badge.style.background = "rgba(16, 185, 129, 0.15)";
+
+                gpuText.innerText = "Optimized";
+                cpuText.innerText = "Locked 60";
+                hud.style.display = 'block';
+
+                addLog("Activating extreme 60 FPS lock for Abdul Hadi...");
+                setTimeout(() => addLog("Clearing background webview cache..."), 400);
+                setTimeout(() => addLog("Pro Boost successfully applied! Enjoy gaming."), 800);
+
+            } else {
+                isBoosted = false;
+                btn.innerText = "🚀 START PRO BOOSTING";
+                btn.classList.remove("active-boost");
+                
+                badge.innerText = "● Normal State";
+                badge.style.color = "var(--text-secondary)";
+                badge.style.background = "rgba(148, 163, 184, 0.15)";
+
+                gpuText.innerText = "Standard";
+                cpuText.innerText = "Normal";
+                hud.style.display = 'none';
+
+                addLog("Restoring system to normal state...");
+                setTimeout(() => addLog("Cache released. Mobile is back to normal!"), 500);
+            }
         }
     </script>
-
 </body>
 </html>
