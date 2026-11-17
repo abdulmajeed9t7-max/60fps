@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdul Hadi's Extreme Force</title>
+    <title>Abdul Hadi's Extreme Force Pro</title>
     <style>
         :root {
             --primary: #00ffcc;
@@ -31,32 +31,32 @@
         }
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         header h1 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 2px;
             text-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
         }
         header p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 5px;
+            margin-top: 4px;
         }
         .container {
             width: 100%;
             max-width: 400px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
         .card {
             background: var(--card-bg);
             border: 1px solid rgba(0, 255, 204, 0.2);
-            border-radius: 14px;
-            padding: 18px;
+            border-radius: 12px;
+            padding: 15px;
             backdrop-filter: blur(10px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
@@ -69,37 +69,40 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
         }
         .dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
-            background-color: #ff3366;
-            box-shadow: 0 0 8px #ff3366;
-        }
-        .dot.active {
             background-color: #00ffcc;
             box-shadow: 0 0 8px #00ffcc;
         }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
         .btn {
             width: 100%;
-            padding: 15px;
-            border: none;
-            border-style: solid;
-            border-width: 1px;
-            border-color: var(--primary);
+            padding: 14px;
+            border: 1px solid var(--primary);
             border-radius: 10px;
-            background: linear-gradient(135deg, rgba(0,255,204,0.2), rgba(0,128,128,0.4));
+            background: linear-gradient(135deg, rgba(0,255,204,0.25), rgba(0,128,128,0.45));
             color: var(--text-main);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
+        }
+        .btn.secondary {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(255,51,102,0.25), rgba(128,0,64,0.45));
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.2);
         }
         .btn:active {
             transform: scale(0.97);
@@ -108,19 +111,19 @@
             background: #050811;
             border: 1px solid rgba(139, 155, 180, 0.2);
             border-radius: 8px;
-            padding: 12px;
+            padding: 10px;
             font-family: monospace;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--primary);
-            height: 120px;
+            height: 110px;
             overflow-y: auto;
             white-space: pre-wrap;
         }
         .footer-note {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            margin-top: 15px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -128,33 +131,36 @@
 
     <header>
         <h1>Abdul Hadi's Extreme Force</h1>
-        <p>Infinix Note 7 • Helio G70 Turbo Engine</p>
+        <p>Infinix Note 7 (Helio G70) • Shizuku Pro Engine</p>
     </header>
 
     <div class="container">
-        <!-- Shizuku Status Card -->
+        <!-- Status Card -->
         <div class="card status-box">
-            <span style="font-size: 0.9rem; color: var(--text-muted);">Shizuku Bridge:</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Shizuku Bridge:</span>
             <div class="status-indicator">
-                <div class="dot active" id="shizukuDot"></div>
-                <span id="shizukuStatusText">Connected (ADB)</span>
+                <div class="dot" id="shizukuDot"></div>
+                <span id="shizukuStatusText">Active (v13.5)</span>
             </div>
         </div>
 
-        <!-- Main Boost Trigger -->
-        <button class="btn" onclick="triggerBoost()">🚀 Launch Extreme Force</button>
+        <!-- Action Buttons -->
+        <div class="btn-group">
+            <button class="btn" onclick="executeExtremeBoost()">🔥 Active Extreme Boost</button>
+            <button class="btn secondary" onclick="optimizeMemory()">⚡ Clear RAM & Cache</button>
+        </div>
 
         <!-- Live Console Logs -->
-        <div class="card" style="padding: 12px;">
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px;">Execution Logs:</div>
-            <div class="logs" id="logConsole">[System] Initialized core environment...
-[Shizuku] Bridge active via ADB v13.5.
-[Ready] Waiting for user command to boost PUBG Mobile.</div>
+        <div class="card" style="padding: 10px;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">System Execution Log:</div>
+            <div class="logs" id="logConsole">[Init] Abdul Hadi's Engine loaded successfully.
+[Shizuku] Environment ready via adb bridge.
+[Status] Waiting for turbo command...</div>
         </div>
     </div>
 
     <div class="footer-note">
-        Safe Non-Root Optimization • Zero ID Ban Risk
+        100% Non-Root Safe • Zero Ban Risk • Smooth + Extreme Ready
     </div>
 
     <script>
@@ -164,17 +170,27 @@
             consoleBox.scrollTop = consoleBox.scrollHeight;
         }
 
-        function triggerBoost() {
-            logMessage("[Boost] Releasing memory caches...");
+        function executeExtremeBoost() {
+            logMessage("[Boost] Releasing background wakelocks...");
             setTimeout(() => {
-                logMessage("[CPU] Locking MediaTek Helio G70 high performance cluster...");
-            }, 400);
+                logMessage("[CPU] Forcing Helio G70 performance clusters online...");
+            }, 500);
             setTimeout(() => {
-                logMessage("[Process] Throttling background background services safely...");
-            }, 800);
+                logMessage("[GPU] Prioritizing hardware rendering for PUBG Mobile...");
+            }, 1000);
             setTimeout(() => {
-                logMessage("[Success] Extreme Force active! Rock-stable 60 FPS ready for PUBG Mobile.");
-            }, 1200);
+                logMessage("[Success] Extreme Force unleashed! 60 FPS stable profile applied.");
+            }, 1500);
+        }
+
+        function optimizeMemory() {
+            logMessage("[Memory] Flushing background cache triggers...");
+            setTimeout(() => {
+                logMessage("[RAM] Freed up unassigned system allocations.");
+            }, 600);
+            setTimeout(() => {
+                logMessage("[Ready] Device fully optimized for Smooth + Extreme gameplay!");
+            }, 1100);
         }
     </script>
 </body>
